@@ -1,5 +1,5 @@
 const KEY_TO_INPUT = Object.freeze({
-  KeyW: 'throttle', KeyS: 'brake', KeyA: 'turnLeft', KeyD: 'turnRight', Space: 'nitro',
+  KeyW: 'throttle', KeyS: 'brake', KeyA: 'turnRight', KeyD: 'turnLeft', Space: 'nitro',
 });
 
 export class InputController {
