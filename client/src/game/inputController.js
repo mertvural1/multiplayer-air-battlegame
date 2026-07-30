@@ -13,10 +13,8 @@ export class InputController {
     window.addEventListener('keyup', (event) => this.#update(event, false));
     window.addEventListener('blur', () => this.#clear());
     window.addEventListener('pointermove', (event) => this.#pointerMove(event));
-    window.addEventListener('pointerdown', (event) => {
-      if (event.target.closest?.('[data-input], [data-action]')) return;
-      if (event.pointerType === 'mouse' && event.button === 0) onFire();
-    });
+    // Do not trigger firing from global mouse clicks. Firing is handled
+    // explicitly by the Space key and buttons with `data-action="fire"`.
     window.addEventListener('contextmenu', (event) => event.preventDefault());
     this.#bindTouchButtons();
   }
@@ -46,11 +44,10 @@ export class InputController {
 
   #pointerMove(event) {
     if (event.target.closest?.('[data-input], [data-action]')) return;
+    // Ignore mouse pointer movements entirely so the mouse cannot control climb/descend.
+    if (event.pointerType === 'mouse') return;
+    // For touch/pointer inputs (mobile), forward pointer coordinates to the handler.
     this.onPointer(event.clientX, event.clientY);
-    if (event.pointerType !== 'mouse') return;
-    const threshold = window.innerHeight * 0.13;
-    const offset = event.clientY - window.innerHeight / 2;
-    this.#setVerticalIntent(offset < -threshold, offset > threshold);
   }
 
   #setVerticalIntent(climb, descend) {
