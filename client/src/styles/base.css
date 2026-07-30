@@ -1,0 +1,40 @@
+:root { color: #f4fbff; background: #07111f; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; min-height: 100vh; overflow: hidden; }
+#game, #game canvas, #ui { position: fixed; inset: 0; }
+#game canvas { display: block; }
+#ui { pointer-events: none; text-shadow: 0 2px 5px #08111bcc; }
+.hud-topbar { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px; }
+.panel { border: 1px solid #b7e9ff53; background: #071624a8; backdrop-filter: blur(8px); box-shadow: 0 8px 28px #00000026; }
+.online-panel { display: flex; gap: 9px; align-items: center; padding: 10px 13px; color: #d8f6ff; font-size: 12px; letter-spacing: .1em; font-weight: 750; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: #78f9aa; box-shadow: 0 0 10px #78f9aa; }
+.scoreboard { width: min(310px, 47vw); padding: 12px 13px; }
+.scoreboard h2 { margin: 0 0 8px; color: #d9f3ff; font-size: 11px; letter-spacing: .15em; }
+.score-head, .score-row { display: grid; grid-template-columns: 1fr 28px 28px; align-items: center; gap: 4px; }
+.score-head { color: #8da9b8; font-size: 9px; letter-spacing: .1em; padding: 0 4px 4px; }
+#score-list { max-height: 265px; overflow: hidden; }
+.score-row { padding: 5px 4px; font-size: 12px; color: #e7f7ff; }
+.score-row:nth-child(odd) { background: #ffffff0c; }
+.score-row.self { color: #fff1a6; background: #fcd34d1d; }
+.score-row span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.score-row i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; }
+.score-row b { text-align: center; font-size: 11px; }
+.crosshair { position: absolute; top: 50%; left: 50%; width: 26px; height: 26px; transform: translate(-50%, -50%); }
+.crosshair i, .crosshair b, .crosshair em, .crosshair strong { position: absolute; display:block; background: #f7fcff; box-shadow: 0 0 4px #001018; }
+.crosshair i, .crosshair b { width: 2px; height: 8px; left: 12px; } .crosshair i { top: 0; } .crosshair b { bottom: 0; }
+.crosshair em, .crosshair strong { width: 8px; height: 2px; top: 12px; } .crosshair em { left: 0; } .crosshair strong { right: 0; }
+.hud-bottom { position:absolute; inset: auto 20px 20px; display:flex; align-items:end; justify-content:space-between; gap:18px; }
+.vitals { width: 205px; padding: 13px; }.vital-label { color:#9dc3d3; font-size:10px; letter-spacing:.13em; font-weight:700; }
+.hearts { margin: 4px 0 13px; color:#ff6d7b; letter-spacing:4px; font-size:24px; line-height:1; }.nitro-label { display:flex; justify-content:space-between; }
+.meter { height:7px; margin-top:6px; background:#152b3b; overflow:hidden; }.meter div { height:100%; width:100%; background:linear-gradient(90deg,#46d6ff,#b0f5ff); box-shadow:0 0 10px #4be2ff; transition:width .12s linear; }
+.controls { color:#cce4eea8; font-size:10px; letter-spacing:.08em; text-align:right; }
+.respawn { position:absolute; left:50%; top:62%; transform:translate(-50%,-50%); padding:15px 22px; background:#3a1016d9; border:1px solid #ff778580; color:#fff0f1; font-size:13px; letter-spacing:.08em; font-weight:750; }.hidden { display:none; }
+.mobile-controls { display:none; }
+@media (max-width: 768px), (pointer: coarse) {
+  .hud-topbar { padding:10px; }.scoreboard { width: 190px; }.hud-bottom { inset:auto 10px 10px; }.controls { display:none; }.vitals { width:170px; }.score-row { font-size:10px; }
+  .mobile-controls { display:flex; position:absolute; inset:auto 16px 24px; justify-content:space-between; align-items:end; pointer-events:auto; }
+  .mobile-cluster { display:grid; grid-template-columns:repeat(2, 58px); gap:8px; }
+  .mobile-cluster button { height:52px; border:1px solid #c9ecff73; background:#0b2033a8; color:#e8f8ff; border-radius:12px; font:700 19px/1 system-ui; touch-action:none; user-select:none; box-shadow:0 4px 14px #0005; }
+  .mobile-cluster button:active { background:#2375a8bd; transform:scale(.96); }
+  .flight-cluster { grid-template-columns:repeat(2, 62px); }.flight-cluster .fire-button { grid-column:span 2; color:#fff2c0; border-color:#ffd35d90; font-size:12px; letter-spacing:.13em; }
+}
