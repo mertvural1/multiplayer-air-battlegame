@@ -1,5 +1,5 @@
 const KEY_TO_INPUT = Object.freeze({
-  KeyW: 'throttle', KeyS: 'brake', KeyA: 'turnRight', KeyD: 'turnLeft', Space: 'nitro',
+  KeyW: 'climb', KeyS: 'descend', KeyA: 'turnRight', KeyD: 'turnLeft', ShiftLeft: 'nitro', ShiftRight: 'nitro',
 });
 
 export class InputController {
@@ -22,6 +22,15 @@ export class InputController {
   }
 
   #update(event, isPressed) {
+    // Space is a discrete action (fire) rather than a continuous input.
+    if (event.code === 'Space') {
+      if (isPressed) {
+        event.preventDefault();
+        this.onFire();
+      }
+      return;
+    }
+
     const field = KEY_TO_INPUT[event.code];
     if (!field || this.#input[field] === isPressed) return;
     event.preventDefault();

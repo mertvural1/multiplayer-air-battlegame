@@ -26,7 +26,10 @@ new InputController({
   },
   onFire: () => {
     if (!state.self?.alive) return;
-    if (lastAim) socket.sendAim(lastAim);
+    // Always fire straight ahead relative to the player's current yaw
+    const yaw = state.self?.state?.yaw ?? 0;
+    const forwardAim = { x: Math.sin(yaw), y: 0, z: Math.cos(yaw) };
+    socket.sendAim(forwardAim);
     socket.fire();
     sounds.fire();
   },
