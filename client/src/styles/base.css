@@ -1,6 +1,7 @@
 :root { color: #f4fbff; background: #07111f; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; min-height: 100vh; overflow: hidden; }
+#game { cursor: none; }
 #game, #game canvas, #ui { position: fixed; inset: 0; }
 #game canvas { display: block; }
 #ui { pointer-events: none; text-shadow: 0 2px 5px #08111bcc; }
