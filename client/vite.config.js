@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   server: {
-    port: "https://multiplayer-air-battlegame-2.onrender.com/",
+    port: "5173",
     strictPort: true,
   },
   build: {
