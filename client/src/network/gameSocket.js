@@ -8,7 +8,10 @@ export class GameSocket {
   #listeners = new Map();
 
   
-  constructor(url = import.meta.env.VITE_SERVER_URL ?? (import.meta.env.DEV ? 'http://localhost:3000' : window.location.origin)) {
+  // Default to VITE_SERVER_URL when provided at build; in dev use localhost.
+  // In production, if VITE_SERVER_URL is not set during the client build (e.g. Vercel),
+  // fall back to the deployed Render server so the client connects to the correct backend.
+  constructor(url = import.meta.env.VITE_SERVER_URL ?? (import.meta.env.DEV ? 'http://localhost:3000' : 'https://multiplayer-air-battlegame-2.onrender.com')) {
     this.#socket = io(url, { transports: ['websocket', 'polling'], reconnection: true });
     SERVER_EVENTS.forEach((event) => this.#socket.on(event, (payload) => this.#emit(event, payload)));
     this.#socket.on('connect_error', () => this.#emit('connection:error'));

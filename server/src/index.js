@@ -11,7 +11,12 @@ import { PlayerRegistry } from './network/playerRegistry.js';
 import { GameLoop } from './game/gameLoop.js';
 
 const port = Number(process.env.PORT ?? NETWORK.DEFAULT_PORT);
-const clientOrigin = process.env.CLIENT_ORIGIN ?? NETWORK.DEFAULT_CLIENT_ORIGIN;
+let clientOrigin = process.env.CLIENT_ORIGIN ?? NETWORK.DEFAULT_CLIENT_ORIGIN;
+// If no CLIENT_ORIGIN provided in production, allow all origins so deployed
+// client can reach the socket endpoint. Prefer setting CLIENT_ORIGIN in env.
+if (!process.env.CLIENT_ORIGIN && process.env.NODE_ENV === 'production') {
+  clientOrigin = '*';
+}
 const app = express();
 const directory = dirname(fileURLToPath(import.meta.url));
 const clientDist = resolve(directory, '../../client/dist');
