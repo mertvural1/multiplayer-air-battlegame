@@ -7,6 +7,7 @@ export class GameSocket {
   #socket;
   #listeners = new Map();
 
+  
   constructor(url = import.meta.env.VITE_SERVER_URL ?? (import.meta.env.DEV ? 'http://localhost:3000' : window.location.origin)) {
     this.#socket = io(url, { transports: ['websocket', 'polling'], reconnection: true });
     SERVER_EVENTS.forEach((event) => this.#socket.on(event, (payload) => this.#emit(event, payload)));
