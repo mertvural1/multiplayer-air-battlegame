@@ -25,7 +25,10 @@ export function simulatePlayerMovement(player, deltaSeconds) {
   state.verticalSpeed = approach(state.verticalSpeed, verticalTarget, verticalChange);
   state.y = clamp(state.y + state.verticalSpeed * deltaSeconds, PLAYER.MIN_ALTITUDE, PLAYER.MAX_ALTITUDE);
   if (state.y === PLAYER.MIN_ALTITUDE || state.y === PLAYER.MAX_ALTITUDE) state.verticalSpeed = 0;
-  state.pitch = clamp(state.verticalSpeed / PLAYER.CLIMB_SPEED, -1, 1) * 0.34;
+  // Prefer immediate input direction for pitch (climb/descend), otherwise base on verticalSpeed.
+  const pitchSource = verticalDirection !== 0 ? verticalDirection : state.verticalSpeed / PLAYER.CLIMB_SPEED;
+  // Apply pitch so that positive climb input corresponds to positive pitch value.
+  state.pitch = clamp(pitchSource, -1, 1) * 0.34;
   keepInsideMap(state);
 }
 
