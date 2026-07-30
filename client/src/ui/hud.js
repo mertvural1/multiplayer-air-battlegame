@@ -12,8 +12,21 @@ export class Hud {
       </div>
       <div id="respawn" class="respawn hidden"></div>
       <div class="mobile-controls" aria-label="Dokunmatik oyun kontrolleri">
-        <div class="mobile-cluster move-cluster"><button data-input="turnLeft" aria-label="Sola dön">◀</button><button data-input="turnRight" aria-label="Sağa dön">▶</button><button data-input="throttle" aria-label="Hızlan">▲</button><button data-input="brake" aria-label="Yavaşla">▼</button></div>
-        <div class="mobile-cluster flight-cluster"><button data-input="climb" aria-label="Yüksel">↑</button><button data-input="descend" aria-label="Alçal">↓</button><button data-input="nitro" aria-label="Nitro">N</button><button data-action="fire" class="fire-button" aria-label="Ateş et">ATEŞ</button></div>
+        <!-- D-pad: up/left/right/down -->
+        <div class="mobile-cluster dpad-cluster">
+          <button data-input="climb" aria-label="Yüksel">▲</button>
+          <div class="dpad-row">
+            <button data-input="turnLeft" aria-label="Sola">▶</button>
+            <button class="dpad-center" aria-hidden="true"></button>
+            <button data-input="turnRight" aria-label="Sağa">◀</button>
+          </div>
+          <button data-input="descend" aria-label="Alçal">▼</button>
+        </div>
+        <!-- Actions: nitro + fire -->
+        <div class="mobile-cluster action-cluster">
+          <button data-input="nitro" aria-label="Nitro" class="nitro-button">N</button>
+          <button data-action="fire" class="fire-button" aria-label="Ateş et">ATEŞ</button>
+        </div>
       </div>`;
     this.online = root.querySelector('#online-count');
     this.hearts = root.querySelector('#hearts');

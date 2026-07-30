@@ -33,8 +33,19 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow: hidden; }
 @media (max-width: 768px), (pointer: coarse) {
   .hud-topbar { padding:10px; }.scoreboard { width: 190px; }.hud-bottom { inset:auto 10px 10px; }.controls { display:none; }.vitals { width:170px; }.score-row { font-size:10px; }
   .mobile-controls { display:flex; position:absolute; inset:auto 16px 24px; justify-content:space-between; align-items:end; pointer-events:auto; }
+    /* Hide vitals (gövde) and nitro UI on mobile to reduce HUD clutter */
+    .vitals { display: none !important; }
   .mobile-cluster { display:grid; grid-template-columns:repeat(2, 58px); gap:8px; }
-  .mobile-cluster button { height:52px; border:1px solid #c9ecff73; background:#0b2033a8; color:#e8f8ff; border-radius:12px; font:700 19px/1 system-ui; touch-action:none; user-select:none; box-shadow:0 4px 14px #0005; }
+  /* D-pad specific layout: ensure Up, Left, Right, Down are positioned correctly */
+  .mobile-controls .dpad-cluster { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .mobile-controls .dpad-cluster > button { width:58px; }
+  .mobile-controls .dpad-cluster .dpad-row { display:flex; gap:8px; align-items:center; }
+  .mobile-controls .dpad-cluster .dpad-row .dpad-center { width:58px; visibility:hidden; pointer-events:none; }
+  /* Ensure left/right button order is explicit regardless of direction styles */
+  .mobile-controls .dpad-cluster .dpad-row button[data-input="turnRight"] { order: 1;width:40px }
+  .mobile-controls .dpad-cluster .dpad-row .dpad-center { order: 2; }
+  .mobile-controls .dpad-cluster .dpad-row button[data-input="turnLeft"] { order: 3;width:40px }
+  .mobile-cluster button { height:30px; border:1px solid #c9ecff73; background:#0b2033a8; color:#e8f8ff; border-radius:12px; font:700 19px/1 system-ui; touch-action:none; user-select:none; box-shadow:0 4px 14px #0005; }
   .mobile-cluster button:active { background:#2375a8bd; transform:scale(.96); }
   .flight-cluster { grid-template-columns:repeat(2, 62px); }.flight-cluster .fire-button { grid-column:span 2; color:#fff2c0; border-color:#ffd35d90; font-size:12px; letter-spacing:.13em; }
 }

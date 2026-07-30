@@ -62,12 +62,18 @@ export class InputController {
 
   #bindTouchButtons() {
     document.querySelectorAll('[data-input]').forEach((button) => {
-      const field = button.dataset.input;
-      const release = (event) => { event.preventDefault(); this.#set(field, false); };
+      const release = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const field = event.currentTarget?.dataset?.input;
+        if (field) this.#set(field, false);
+      };
       button.addEventListener('pointerdown', (event) => {
         event.preventDefault();
-        button.setPointerCapture?.(event.pointerId);
-        this.#set(field, true);
+        event.stopPropagation();
+        const field = event.currentTarget?.dataset?.input;
+        event.currentTarget?.setPointerCapture?.(event.pointerId);
+        if (field) this.#set(field, true);
       });
       button.addEventListener('pointerup', release);
       button.addEventListener('pointercancel', release);
