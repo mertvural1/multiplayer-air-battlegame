@@ -49,3 +49,11 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow: hidden; }
   .mobile-cluster button:active { background:#2375a8bd; transform:scale(.96); }
   .flight-cluster { grid-template-columns:repeat(2, 62px); }.flight-cluster .fire-button { grid-column:span 2; color:#fff2c0; border-color:#ffd35d90; font-size:12px; letter-spacing:.13em; }
 }
+
+/* Nickname modal */
+.nickname-modal { position: absolute; inset: 0; display:flex; align-items:center; justify-content:center; pointer-events:auto; }
+.nickname-modal .modal-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.6); }
+.nickname-modal .modal { position:relative; z-index:2; background:#071624; border:1px solid #b7e9ff33; padding:20px; width:320px; max-width:90%; border-radius:8px; text-align:center; }
+.nickname-modal input { width:100%; padding:10px 12px; margin-top:12px; border-radius:6px; border:1px solid #284b5d; background:#02121a; color:#e8f8ff; }
+.nickname-modal .modal-actions { margin-top:12px; }
+.nickname-modal button { padding:10px 18px; border-radius:6px; border:1px solid #46d6ff55; background:#0b3a50; color:#e8f8ff; cursor:pointer; }

@@ -37,7 +37,8 @@ const gameLoop = new GameLoop({ registry: players, io });
 gameLoop.start();
 
 io.on('connection', (socket) => {
-  const player = players.add(socket.id);
+  const preferredNickname = socket.handshake?.auth?.nickname;
+  const player = players.add(socket.id, preferredNickname);
 
   // New clients first receive the complete presence snapshot, then live changes.
   socket.emit(EVENTS.READY, { self: player, onlineCount: players.count() });
@@ -47,6 +48,16 @@ io.on('connection', (socket) => {
   socket.on(EVENTS.INPUT, (input) => players.setInput(socket.id, input));
   socket.on(EVENTS.AIM, (direction) => players.setAim(socket.id, direction));
   socket.on(EVENTS.FIRE, () => gameLoop.fire(socket.id));
+
+  // Allow clients to update their nickname after connecting.
+  socket.on('set:nickname', (name) => {
+    const p = players.get(socket.id);
+    if (!p) return;
+    const clean = typeof name === 'string' ? name.trim().replace(/[\n\r]/g, ' ').slice(0, 24) : '';
+    if (!clean) return;
+    p.nickname = clean;
+    io.emit(EVENTS.PLAYERS, players.all());
+  });
 
   socket.on('disconnect', () => {
     if (players.remove(socket.id)) {

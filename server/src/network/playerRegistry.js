@@ -7,10 +7,11 @@ const COLORS = ['#ff5d73', '#38bdf8', '#a3e635', '#fbbf24', '#c084fc', '#fb7185'
 export class PlayerRegistry {
   #players = new Map();
 
-  add(id) {
+  add(id, nickname) {
+    const clean = typeof nickname === 'string' ? nickname.trim().replace(/[\n\r]/g, ' ').slice(0, 24) : '';
     const player = {
       id,
-      nickname: `${pick(ADJECTIVES)} ${pick(NOUNS)}`,
+      nickname: clean || `${pick(ADJECTIVES)} ${pick(NOUNS)}`,
       color: pick(COLORS),
       connectedAt: Date.now(),
       kills: 0,
