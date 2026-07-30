@@ -1,6 +1,6 @@
 export const NETWORK = Object.freeze({
-  DEFAULT_PORT: "https://multiplayer-air-battlegame-2.onrender.com/",
-  DEFAULT_CLIENT_ORIGIN: 'https://multiplayer-air-battlegame-client.vercel.app/',
+  DEFAULT_PORT: 3000,
+  DEFAULT_CLIENT_ORIGIN: 'http://localhost:5173',
   TICK_RATE: 30,
   SNAPSHOT_RATE: 20,
   MAX_INPUT_RATE: 30,
